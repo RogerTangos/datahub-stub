@@ -53,8 +53,11 @@ POLICY_TABLE = 'policy'
 RLS_ALL = 'ALL'
 RLS_PUBLIC = 'PUBLIC'
 
+# Continuious Integration DB Role
+CI_ROLE = 'travis'
+
 # Other blacklisted usernames
-BLACKLISTED_USERNAMES = [RLS_ALL, RLS_PUBLIC]
+BLACKLISTED_USERNAMES = [RLS_ALL, RLS_PUBLIC, CI_ROLE]
 
 TIME_ZONE = 'America/New_York'
 
