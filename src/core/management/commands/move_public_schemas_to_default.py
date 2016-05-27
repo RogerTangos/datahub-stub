@@ -13,17 +13,23 @@ class Command(BaseCommand):
 
 
 def migrate_tables_and_views(apps, schema_editor):
+    print("\n\n********* Beginning migrate_tables_and_views *********")
     DataHubManager.execute_sql
 
     all_users = DataHubManager.list_all_users()
-
+    print("all_users before filter")
+    print(all_users)
     # filter out the anonymous user, which doesn't have a db
     all_users = [username for username in all_users if (
-        username != settings.ANONYMOUS_ROLE)]
+        username != settings.ANONYMOUS_ROLE) and
+        username != settings.CI_ROLE
+    ]
+    print("all_users after filter")
     print (all_users)
 
     # give users select/update/insert access to their rows in the  policy table
     for username in all_users:
+        print("current user")
         print(username)
         with DataHubManager(username) as m:
             res = m.execute_sql(
