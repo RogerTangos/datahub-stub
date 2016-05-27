@@ -19,15 +19,17 @@ def migrate_tables_and_views(apps, schema_editor):
 
     # filter out the anonymous user, which doesn't have a db
     all_users = [username for username in all_users if (
-        username != settings.ANONYMOUS_ROLE)
-    ]
+        username != settings.ANONYMOUS_ROLE)]
+    print (all_users)
 
     # give users select/update/insert access to their rows in the  policy table
     for username in all_users:
+        print(username)
         with DataHubManager(username) as m:
             res = m.execute_sql(
                 "SELECT table_name FROM information_schema.tables "
                 "WHERE table_schema = 'public'")
+            print(res)
             tables_and_views = [table[0] for table in res['tuples']]
 
         move_tables_to_new_schema(username, tables_and_views)
