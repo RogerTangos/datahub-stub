@@ -21,9 +21,7 @@ def migrate_tables_and_views(apps, schema_editor):
     print(all_users)
     # filter out the anonymous user, which doesn't have a db
     all_users = [username for username in all_users if (
-        username != settings.ANONYMOUS_ROLE) and
-        username != settings.CI_ROLE and
-        username != 'rails'
+        username != settings.ANONYMOUS_ROLE)
     ]
     print("all_users after filter")
     print (all_users)
